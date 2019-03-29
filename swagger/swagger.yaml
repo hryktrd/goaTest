@@ -1,0 +1,96 @@
+consumes:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+definitions:
+  PointArea:
+    description: A station of mine (default view)
+    example:
+      id: 8304112251363044069
+      name: Non praesentium.
+    properties:
+      id:
+        description: Unique station ID
+        example: 8304112251363044069
+        format: int64
+        type: integer
+      name:
+        description: Name of station
+        example: Non praesentium.
+        type: string
+    required:
+    - id
+    - name
+    title: 'Mediatype identifier: application/vnd.point.area+json; view=default'
+    type: object
+  PointAreaCollection:
+    description: PointAreaCollection is the media type for an array of PointArea (default
+      view)
+    example:
+    - id: 8304112251363044069
+      name: Non praesentium.
+    items:
+      $ref: '#/definitions/PointArea'
+    title: 'Mediatype identifier: application/vnd.point.area+json; type=collection;
+      view=default'
+    type: array
+host: localhost:8080
+info:
+  description: A simple goa service
+  title: area API
+  version: ""
+paths:
+  /points/:
+    get:
+      description: point list
+      operationId: point#list
+      produces:
+      - application/vnd.point.area+json; type=collection
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/PointAreaCollection'
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: list point
+      tags:
+      - point
+  /points/{pointId}:
+    get:
+      description: Get point by id
+      operationId: point#show
+      parameters:
+      - description: Bottle ID
+        in: path
+        name: pointId
+        required: true
+        type: integer
+      produces:
+      - application/vnd.point.area+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/PointArea'
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: show point
+      tags:
+      - point
+produces:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+responses:
+  NotFound:
+    description: Not Found
+schemes:
+- http
+swagger: "2.0"
