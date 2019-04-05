@@ -8,6 +8,7 @@ import (
 var _ = Resource("point", func() { // Resources group related API endpoints
 	BasePath("/points")      // together. They map to REST resources for REST
 	DefaultMedia(PointMedia) // services.
+	Security(BasicAuth)
 
 	Action("show", func() { // Actions define a single API endpoint together
 		Description("Get point by id") // with its path, parameters (both path

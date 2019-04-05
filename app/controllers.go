@@ -6,6 +6,7 @@
 // $ goagen
 // --design=github.com/hryktrd/goaTest/design
 // --out=$(GOPATH)\src\github.com\hryktrd\goaTest
+// --regen=true
 // --version=v1.3.1
 
 package app
@@ -55,8 +56,9 @@ func MountPointController(service *goa.Service, ctrl PointController) {
 		}
 		return ctrl.List(rctx)
 	}
+	h = handleSecurity("BasicAuth", h)
 	service.Mux.Handle("GET", "/points/", ctrl.MuxHandler("list", h, nil))
-	service.LogInfo("mount", "ctrl", "Point", "action", "List", "route", "GET /points/")
+	service.LogInfo("mount", "ctrl", "Point", "action", "List", "route", "GET /points/", "security", "BasicAuth")
 
 	h = func(ctx context.Context, rw http.ResponseWriter, req *http.Request) error {
 		// Check if there was an error loading the request
@@ -70,6 +72,7 @@ func MountPointController(service *goa.Service, ctrl PointController) {
 		}
 		return ctrl.Show(rctx)
 	}
+	h = handleSecurity("BasicAuth", h)
 	service.Mux.Handle("GET", "/points/:pointId", ctrl.MuxHandler("show", h, nil))
-	service.LogInfo("mount", "ctrl", "Point", "action", "Show", "route", "GET /points/:pointId")
+	service.LogInfo("mount", "ctrl", "Point", "action", "Show", "route", "GET /points/:pointId", "security", "BasicAuth")
 }

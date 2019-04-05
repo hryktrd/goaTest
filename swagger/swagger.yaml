@@ -56,6 +56,8 @@ paths:
           description: Not Found
       schemes:
       - http
+      security:
+      - BasicAuth: []
       summary: list point
       tags:
       - point
@@ -80,6 +82,8 @@ paths:
           description: Not Found
       schemes:
       - http
+      security:
+      - BasicAuth: []
       summary: show point
       tags:
       - point
@@ -93,4 +97,8 @@ responses:
     description: Not Found
 schemes:
 - http
+securityDefinitions:
+  BasicAuth:
+    description: Use client ID and client secret to authenticate
+    type: basic
 swagger: "2.0"

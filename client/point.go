@@ -6,6 +6,7 @@
 // $ goagen
 // --design=github.com/hryktrd/goaTest/design
 // --out=$(GOPATH)\src\github.com\hryktrd\goaTest
+// --regen=true
 // --version=v1.3.1
 
 package client
@@ -44,6 +45,11 @@ func (c *Client) NewListPointRequest(ctx context.Context, path string) (*http.Re
 	if err != nil {
 		return nil, err
 	}
+	if c.BasicAuthSigner != nil {
+		if err := c.BasicAuthSigner.Sign(req); err != nil {
+			return nil, err
+		}
+	}
 	return req, nil
 }
 
@@ -73,6 +79,11 @@ func (c *Client) NewShowPointRequest(ctx context.Context, path string) (*http.Re
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+	if c.BasicAuthSigner != nil {
+		if err := c.BasicAuthSigner.Sign(req); err != nil {
+			return nil, err
+		}
 	}
 	return req, nil
 }

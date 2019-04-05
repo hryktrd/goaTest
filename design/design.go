@@ -10,3 +10,7 @@ var _ = API("area", func() { // API defines the microservice endpoint and
 	Scheme("http")                      // the design.
 	Host("localhost:8080")
 })
+
+var BasicAuth = BasicAuthSecurity("BasicAuth", func() {
+	Description("Use client ID and client secret to authenticate")
+})

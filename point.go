@@ -42,6 +42,7 @@ func (c *PointController) List(ctx *app.ListPointContext) error {
 	}
 
 	return ctx.OK(res)
+
 	// PointController_List: end_implement
 }
 
@@ -55,5 +56,6 @@ func (c *PointController) Show(ctx *app.ShowPointContext) error {
 	}
 
 	return ctx.OK(&res)
+
 	// PointController_Show: end_implement
 }

@@ -6,6 +6,7 @@
 // $ goagen
 // --design=github.com/hryktrd/goaTest/design
 // --out=$(GOPATH)\src\github.com\hryktrd\goaTest
+// --regen=true
 // --version=v1.3.1
 
 package client
@@ -18,8 +19,9 @@ import (
 // Client is the area service client.
 type Client struct {
 	*goaclient.Client
-	Encoder *goa.HTTPEncoder
-	Decoder *goa.HTTPDecoder
+	BasicAuthSigner goaclient.Signer
+	Encoder         *goa.HTTPEncoder
+	Decoder         *goa.HTTPDecoder
 }
 
 // New instantiates the client.
@@ -43,4 +45,9 @@ func New(c goaclient.Doer) *Client {
 	client.Decoder.Register(goa.NewJSONDecoder, "*/*")
 
 	return client
+}
+
+// SetBasicAuthSigner sets the request signer for the BasicAuth security scheme.
+func (c *Client) SetBasicAuthSigner(signer goaclient.Signer) {
+	c.BasicAuthSigner = signer
 }

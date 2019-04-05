@@ -6,6 +6,7 @@
 // $ goagen
 // --design=github.com/hryktrd/goaTest/design
 // --out=$(GOPATH)\src\github.com\hryktrd\goaTest
+// --regen=true
 // --version=v1.3.1
 
 package app
